@@ -2,16 +2,18 @@
 CREATE DATABASE IF NOT EXISTS blog;
 
 -- create table if not exists blog.user
-CREATE TABLE IF NOT EXISTS users (
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(64) NOT NULL UNIQUE,
-    email VARCHAR(64) NOT NULL UNIQUE,
+    username VARCHAR(64) NOT NULL,
+    name VARCHAR(64) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- insert 10 users mocked data
-INSERT INTO users (username, email) VALUES
+DELETE FROM users;
+INSERT INTO users (username, name) VALUES
     ('user1', 'email1'),
     ('user2', 'email2'),
     ('user3', 'email3'),

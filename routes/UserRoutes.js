@@ -11,12 +11,13 @@ class UserRouter {
     }
 
     defineRoutes() {
-        const userMySQLController = new UserController(this.db);
-        this.router.get('/', userMySQLController.get);
-        this.router.post('/', userMySQLController.create);
-        this.router.put('/:id', userMySQLController.update);
-        this.router.delete('/:id', userMySQLController.remove);
-        return this.router;;
+        const userController = new UserController(this.db);
+        this.router.get('/', userController.get);
+        this.router.post('/', userController.create);
+        this.router.put('/:id', userController.update);
+        this.router.delete('/:id', userController.remove);
+        this.router.get('/generate/:amount', userController.generate);
+        return this.router;
     }
 }
 

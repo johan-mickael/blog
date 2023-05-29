@@ -10,6 +10,7 @@ class UserController {
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
         this.remove = this.remove.bind(this);
+        this.generate = this.generate.bind(this);
     }
 
     async get(req, res) {
@@ -47,6 +48,16 @@ class UserController {
         try {
             const user = await this.userModel.remove(id);
             res.json(user);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    async generate(req, res) {
+        const { amount } = req.params;
+        try {
+            const users = await this.userModel.insertMockUsers(amount);
+            res.json(users);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

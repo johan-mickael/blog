@@ -1,4 +1,7 @@
 const mongoose = require('../../config/mongo.db');
+const { performance } = require('perf_hooks');
+const StatisticData = require('../base/StatisticData');
+const { count } = require('console');
 
 class UserRepository {
 
@@ -14,10 +17,12 @@ class UserRepository {
 
     async get() {
         try {
+            const startTime = performance.now();
             const users = await this.User.find();
-            return users;
+            const endTime = performance.now();
+            return new StatisticData(users, users.length, (endTime - startTime));
         } catch (error) {
-            throw new Error('Failed to fetch users');
+            throw new Error(error);
         }
     }
     
@@ -27,7 +32,7 @@ class UserRepository {
             await user.save();
             return user;
         } catch (error) {
-            throw new Error('Failed to create user');
+            throw new Error(error);
         }
     }
     
@@ -39,17 +44,16 @@ class UserRepository {
             });
             return user;
         } catch (error) {
-            throw new Error('Failed to update user');
+            throw new Error(error);
         }
     }
     
     async remove(id) {
         try {
-            const { id } = req.params;
             await this.User.findByIdAndDelete(id);
             return user;
         } catch (error) {
-            throw new Error('Failed to delete user');
+            throw new Error(error);
         }   
     }
 }

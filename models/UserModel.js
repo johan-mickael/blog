@@ -1,5 +1,8 @@
+const faker = require('faker');
+
 const UserMySQLRepository = require('../repositories/mysql/UserRepository');
 const UserMongoDBRepository = require('../repositories/mongodb/UserRepository');
+
 
 class UserModel {
     constructor(database = 'mongodb') {
@@ -42,6 +45,33 @@ class UserModel {
             return user;
         } catch (error) {
             throw error;
+        }
+    }
+
+    async generateMockUser() {
+        // Fake email and username
+        const name = faker.name.findName();
+        const username = faker.internet.userName();
+
+        return {
+            name,
+            username,
+        };
+    }
+
+    async generateMockUsers(count) {
+        const users = [];
+        for (let i = 0; i < count; i++) {
+            users.push(await this.generateMockUser());
+        }
+        return users;
+    }
+
+    async insertMockUsers(count) {
+        const users = await this.generateMockUsers(count);
+        for (let i = 0; i < users.length; i++) {
+            const user = users[i];
+            await this.create(user.username, user.name);
         }
     }
 }

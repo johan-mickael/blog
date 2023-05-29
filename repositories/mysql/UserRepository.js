@@ -10,7 +10,7 @@ class UserRepository {
             connection.release();
             return rows;
         } catch (error) {
-            throw new Error('Failed to fetch users');
+            throw new Error(error);
         }
     }
     
@@ -21,7 +21,7 @@ class UserRepository {
             connection.release();
             return rows;
         } catch (error) {
-            throw new Error('Failed to insert user');
+            throw new Error(error);
         }
     }
     
@@ -32,7 +32,7 @@ class UserRepository {
             connection.release();
             return rows;
         } catch (error) {
-            throw new Error('Failed to update user');
+            throw new Error(error);
         }
     }
     
@@ -43,7 +43,7 @@ class UserRepository {
             connection.release();
             return rows;
         } catch (error) {
-            throw new Error('Failed to delete user');
+            throw new Error(error);
         }
     }
 }
