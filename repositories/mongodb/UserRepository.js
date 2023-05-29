@@ -1,4 +1,4 @@
-const mongoose = require('../../databases/config/mongo.db');
+const mongoose = require('../../config/mongo.db');
 
 class UserRepository {
 

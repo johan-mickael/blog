@@ -1,11 +1,8 @@
 const UserModel = require('../models/UserModel');
 
-const userModel = new UserModel(process.env.DB || 'mongodb');
+const userModel = new UserModel(process.env.DB || 'mysql');
 
 class UserController {
-    constructor() {
-        this.userModel = new UserModel(process.env.DB || 'mongodb');
-    }
 
     async get(req, res) {
         try {
@@ -49,4 +46,4 @@ class UserController {
 
 }
 
-module.exports = new UserController();
+module.exports = UserController;

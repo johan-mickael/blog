@@ -1,11 +1,12 @@
-const db = require('../../databases/config/mysql.db');
+const db = require('../../config/mysql.db');
+const QueryStatistic = require('./QueryStatistic');
 
 class UserRepository {
 
     async get() {
         try {
             const connection = await db.getConnection();
-            const [rows, fields] = await connection.execute('SELECT * FROM users');
+            const rows = await new QueryStatistic(connection).perform('SELECT * FROM users');
             connection.release();
             return rows;
         } catch (error) {
