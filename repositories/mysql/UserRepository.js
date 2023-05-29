@@ -6,7 +6,11 @@ class UserRepository {
     async get() {
         try {
             const connection = await db.getConnection();
-            const rows = await new QueryStatistic(connection).perform('SELECT * FROM users');
+            const rows = await new QueryStatistic(connection, {
+                entity: 'users',
+                type: 'select',
+                path: 'mysql.log.json',
+            }).perform('SELECT * FROM users');
             connection.release();
             return rows;
         } catch (error) {
@@ -17,7 +21,11 @@ class UserRepository {
     async create(username, name) {
         try {
             const connection = await db.getConnection();
-            const [rows, fields] = await connection.execute('INSERT INTO users (username, name) VALUES (?, ?)', [username, name]);
+            const rows = await new QueryStatistic(connection, {
+                entity: 'users',
+                type: 'insert',
+                path: 'mysql.log.json',
+            }).perform('INSERT INTO users (username, name) VALUES (?, ?)', [username, name]);
             connection.release();
             return rows;
         } catch (error) {
@@ -28,7 +36,11 @@ class UserRepository {
     async update(id, username, name) {
         try {
             const connection = await db.getConnection();
-            const [rows, fields] = await connection.execute('UPDATE users SET username = ?, name = ? WHERE id = ?', [username, name, id]);
+            const rows = await new QueryStatistic(connection, {
+                entity: 'users',
+                type: 'update',
+                path: 'mysql.log.json',
+            }).perform('UPDATE users SET username = ?, name = ? WHERE id = ?', [username, name, id]);
             connection.release();
             return rows;
         } catch (error) {
@@ -39,7 +51,11 @@ class UserRepository {
     async remove(id) {
         try {
             const connection = await db.getConnection();
-            const [rows, fields] = await connection.execute('DELETE FROM users WHERE id = ?', [id]);
+            const rows = await new QueryStatistic(connection, {
+                entity: 'users',
+                type: 'delete',
+                path: 'mysql.log.json',
+            }).perform('DELETE FROM users WHERE id = ?', [id]);
             connection.release();
             return rows;
         } catch (error) {

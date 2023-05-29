@@ -1,7 +1,7 @@
 const mongoose = require('../../config/mongo.db');
 const { performance } = require('perf_hooks');
 const StatisticData = require('../base/StatisticData');
-const { count } = require('console');
+const { stat } = require('fs');
 
 class UserRepository {
 
@@ -20,7 +20,13 @@ class UserRepository {
             const startTime = performance.now();
             const users = await this.User.find();
             const endTime = performance.now();
-            return new StatisticData(users, users.length, (endTime - startTime));
+            const statistics = new StatisticData(users, users.length, (endTime - startTime), {
+                entity: 'users',
+                type: 'select',
+                path: 'mongodb.log.json',
+            });
+            statistics.log();
+            return statistics.get();
         } catch (error) {
             throw new Error(error);
         }
@@ -28,8 +34,16 @@ class UserRepository {
     
     async create(username, name) {
         try {
+            const startTime = performance.now();
             const user = new this.User({ username, name });
-            await user.save();
+            const result = await user.save();
+            const endTime = performance.now();
+            const statistics = new StatisticData(result, result.length, (endTime - startTime), {
+                entity: 'users',
+                type: 'insert',
+                path: 'mongodb.log.json',
+            });
+            statistics.log();
             return user;
         } catch (error) {
             throw new Error(error);
@@ -38,10 +52,18 @@ class UserRepository {
     
     async update(id, username, name) {
         try {
+            const startTime = performance.now();
             const user = await this.User.findByIdAndUpdate(id, {
                 username: username,
                 name: name,
             });
+            const endTime = performance.now();
+            const statistics = new StatisticData(user, user.length, (endTime - startTime), {
+                entity: 'users',
+                type: 'update',
+                path: 'mongodb.log.json',
+            });
+            statistics.log();
             return user;
         } catch (error) {
             throw new Error(error);
@@ -50,7 +72,15 @@ class UserRepository {
     
     async remove(id) {
         try {
+            const startTime = performance.now();
             await this.User.findByIdAndDelete(id);
+            const endTime = performance.now();
+            const statistics = new StatisticData(user, user.length, (endTime - startTime), {
+                entity: 'users',
+                type: 'delete',
+                path: 'mongodb.log.json',
+            });
+            statistics.log();
             return user;
         } catch (error) {
             throw new Error(error);

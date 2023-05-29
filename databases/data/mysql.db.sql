@@ -13,14 +13,3 @@ CREATE TABLE users (
 
 -- insert 10 users mocked data
 DELETE FROM users;
-INSERT INTO users (username, name) VALUES
-    ('user1', 'email1'),
-    ('user2', 'email2'),
-    ('user3', 'email3'),
-    ('user4', 'email4'),
-    ('user5', 'email5'),
-    ('user6', 'email6'),
-    ('user7', 'email7'),
-    ('user8', 'email8'),
-    ('user9', 'email9'),
-    ('user10', 'email10');
