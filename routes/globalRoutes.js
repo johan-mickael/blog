@@ -1,4 +1,4 @@
-const userRoutes = require('./userRoutes');
+const userRoutes = require('./UserRoutes');
 
 function setupGlobalRoutes(app) {
   app.use('/users', userRoutes);
