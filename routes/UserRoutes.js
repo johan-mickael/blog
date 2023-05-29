@@ -1,13 +1,24 @@
 const express = require('express');
-const router = express.Router();
 
 const UserController = require('../controllers/UserController');
-const userController = new UserController();
 
-router.get('/', userController.get);
-router.post('/', userController.create);
-router.put('/:id', userController.update);
-router.delete('/:id', userController.remove);
+class UserRouter {
+
+    constructor(expressApp, db) {
+        this.app = expressApp;
+        this.db = db;
+        this.router = express.Router();
+    }
+
+    defineRoutes() {
+        const userMySQLController = new UserController(this.db);
+        this.router.get('/', userMySQLController.get);
+        this.router.post('/', userMySQLController.create);
+        this.router.put('/:id', userMySQLController.update);
+        this.router.delete('/:id', userMySQLController.remove);
+        return this.router;;
+    }
+}
 
 // Export the router
-module.exports = router;
+module.exports = UserRouter;

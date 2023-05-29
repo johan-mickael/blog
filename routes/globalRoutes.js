@@ -1,7 +1,10 @@
-const userRoutes = require('./UserRoutes');
+const UserRouter = require('./UserRoutes');
 
 function setupGlobalRoutes(app) {
-  app.use('/users', userRoutes);
+  const userMySQLRouter = new UserRouter(app, 'mysql').defineRoutes();
+  const userMongoDBRouter = new UserRouter(app, 'mongo').defineRoutes();
+  app.use('/mysql/users', userMySQLRouter);
+  app.use('/mongodb/users', userMongoDBRouter);
 }
 
 module.exports = setupGlobalRoutes;

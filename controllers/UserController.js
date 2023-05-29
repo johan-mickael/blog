@@ -1,12 +1,20 @@
 const UserModel = require('../models/UserModel');
 
-const userModel = new UserModel(process.env.DB || 'mysql');
-
 class UserController {
+
+    userModel = null;  
+
+    constructor(db = 'mongodb') { 
+        this.userModel = new UserModel(db);
+        this.get = this.get.bind(this);
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.remove = this.remove.bind(this);
+    }
 
     async get(req, res) {
         try {
-            const users = await userModel.get();
+            const users = await this.userModel.get();
             res.json(users);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -16,7 +24,7 @@ class UserController {
     async create(req, res) {
         const { username, name } = req.body;
         try {
-            const user = await userModel.create(username, name);
+            const user = await this.userModel.create(username, name);
             res.json(user);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -27,7 +35,7 @@ class UserController {
         const { id } = req.params;
         const { username, name } = req.body;
         try {
-            const user = await userModel.update(id, username, name);
+            const user = await this.userModel.update(id, username, name);
             res.json(user);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -37,7 +45,7 @@ class UserController {
     async remove(req, res) {
         const { id } = req.params;
         try {
-            const user = await userModel.remove(id);
+            const user = await this.userModel.remove(id);
             res.json(user);
         } catch (error) {
             res.status(500).json({ error: error.message });
