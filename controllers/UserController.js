@@ -1,3 +1,4 @@
+const { ne } = require('faker/lib/locales');
 const UserModel = require('../models/UserModel');
 
 class UserController {
@@ -56,12 +57,24 @@ class UserController {
     async generate(req, res) {
         const { amount } = req.params;
         try {
-            const users = await this.userModel.insertMockUsers(amount);
+            const users = await new UserModel().insertMockUsers(amount);
             res.json(users);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async generateForBothDatabases(req, res) {
+        const { amount } = req.params;
+        try {
+            const users = await (new UserModel()).generateMockUsers(amount);
+            await new UserModel('mongodb').createMany(users);
+            await new UserModel('mysql').createMany(users);
+            res.status(200).json('Users created successfully for both databases');
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }   
 
 }
 

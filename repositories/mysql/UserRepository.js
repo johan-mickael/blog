@@ -32,6 +32,22 @@ class UserRepository {
             throw new Error(error);
         }
     }
+
+    async createMany(users) {
+        const values = users.map(item => [item.username, item.name]);
+        try {
+            const connection = await db.getConnection();
+            const rows = await new QueryStatistic(connection, {
+                entity: 'users',
+                type: 'insert',
+                path: 'mysql.log.json',
+            }).perform('INSERT INTO users (username, name) VALUES ?', [values]);
+            connection.release();
+            return rows;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
     
     async update(id, username, name) {
         try {

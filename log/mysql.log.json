@@ -1,0 +1,78 @@
+{
+  "select": [
+    {
+      "entity": "users",
+      "total": 10000,
+      "time": 55.91092500090599
+    },
+    {
+      "entity": "users",
+      "total": 110000,
+      "time": 373.20148400217295
+    },
+    {
+      "entity": "users",
+      "total": 100000,
+      "time": 357.5898970067501
+    },
+    {
+      "entity": "users",
+      "total": 100000,
+      "time": 383.8972359970212
+    },
+    {
+      "entity": "users",
+      "total": 100000,
+      "time": 323.4200730025768
+    },
+    {
+      "entity": "users",
+      "total": 0,
+      "time": 4.681835003197193
+    },
+    {
+      "entity": "users",
+      "total": 20000,
+      "time": 88.4150319993496
+    },
+    {
+      "entity": "users",
+      "total": 20000,
+      "time": 94.30175399780273
+    },
+    {
+      "entity": "users",
+      "total": 20000,
+      "time": 69.14701499789953
+    },
+    {
+      "entity": "users",
+      "total": 20000,
+      "time": 67.71545600146055
+    }
+  ],
+  "insert": [
+    {
+      "entity": "users",
+      "time": 955.6026580035686
+    },
+    {
+      "entity": "users",
+      "time": 919.3757590055466
+    },
+    {
+      "entity": "users",
+      "time": 834.3989199995995
+    },
+    {
+      "entity": "users",
+      "time": 95.78246899694204
+    },
+    {
+      "entity": "users",
+      "time": 81.55724199861288
+    }
+  ],
+  "update": [],
+  "delete": []
+}

@@ -1,0 +1,48 @@
+{
+  "select": [
+    {
+      "entity": "users",
+      "total": 100000,
+      "time": 638.1367769986391
+    },
+    {
+      "entity": "users",
+      "total": 100000,
+      "time": 625.4317689985037
+    },
+    {
+      "entity": "users",
+      "total": 100000,
+      "time": 638.4798800051212
+    },
+    {
+      "entity": "users",
+      "total": 20000,
+      "time": 163.2684110030532
+    }
+  ],
+  "insert": [
+    {
+      "entity": "users",
+      "time": 1323.6349779963493
+    },
+    {
+      "entity": "users",
+      "time": 1391.4147959947586
+    },
+    {
+      "entity": "users",
+      "time": 1388.0723569989204
+    },
+    {
+      "entity": "users",
+      "time": 158.38535899668932
+    },
+    {
+      "entity": "users",
+      "time": 148.40699099749327
+    }
+  ],
+  "update": [],
+  "delete": []
+}

@@ -17,6 +17,7 @@ class UserRouter {
         this.router.put('/:id', userController.update);
         this.router.delete('/:id', userController.remove);
         this.router.get('/generate/:amount', userController.generate);
+        this.router.get('/generate-both/:amount', userController.generateForBothDatabases);
         return this.router;
     }
 }

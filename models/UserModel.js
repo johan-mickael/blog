@@ -30,6 +30,15 @@ class UserModel {
         }
     }
 
+    async createMany(users) {
+        try {
+            const user = await this.repository.createMany(users);
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async update(id, username, name) {
         try {
             const user = await this.repository.update(id, username, name);
@@ -54,8 +63,8 @@ class UserModel {
         const username = faker.internet.userName();
 
         return {
-            name,
             username,
+            name,
         };
     }
 
@@ -69,10 +78,7 @@ class UserModel {
 
     async insertMockUsers(count) {
         const users = await this.generateMockUsers(count);
-        for (let i = 0; i < users.length; i++) {
-            const user = users[i];
-            await this.create(user.username, user.name);
-        }
+        this.createMany(users);
     }
 }
 

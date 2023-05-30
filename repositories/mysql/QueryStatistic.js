@@ -1,7 +1,6 @@
 const { performance } = require('perf_hooks');
 const BaseStatistic = require('../base/BaseStatistic');
 const StatisticData = require('../base/StatisticData');
-const { stat } = require('fs');
 
 class QueryStatistic extends BaseStatistic {
     constructor(connection, options = {}) {
@@ -12,7 +11,7 @@ class QueryStatistic extends BaseStatistic {
     async perform(query, params = []) {
         try {
             const startTime = performance.now();
-            const [rows, fields] = await this.connection.execute(query, params);
+            const [rows, fields] = await this.connection.query(query, params);
             const endTime = performance.now();
             const statistics = new StatisticData(rows, rows.length, (endTime - startTime), {
                 entity: this.options.entity,

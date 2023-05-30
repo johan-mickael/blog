@@ -1,3 +1,4 @@
+const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
 
 const options = {
@@ -5,6 +6,25 @@ const options = {
     useUnifiedTopology: true,
 };
 
-mongoose.connect('mongodb://localhost:27017/blog', options);
+const url = 'mongodb://localhost:27017';
+const dbName = 'blog';
 
-module.exports = mongoose;
+async function createMongoDBPool() {
+    try {
+        const client = await MongoClient.connect(url, options);
+        const db = client.db(dbName);
+        return {
+            client,
+            db,
+        };;
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+
+mongoose.connect(url + '/' + dbName, options);
+
+module.exports = {
+    createMongoDBPool,
+    mongoose,
+}
